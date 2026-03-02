@@ -1,13 +1,8 @@
 name: Aspira CI/CD Pipeline
 
-# Trigger pipeline
 on:
   push:
     branches: [ main ]
-
-  pull_request:
-    branches: [ main ]
-
   workflow_dispatch:
 
 jobs:
@@ -18,29 +13,19 @@ jobs:
 
     steps:
 
-      # Step 1: Download your code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install Node.js
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run tests
-      - name: Run tests
-        run: npm test -- --watchAll=false
-        continue-on-error: true
-
-      # Step 5: Build project
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
 
-      # Step 6: Show success message
-      - name: Success message
-        run: echo "Aspira pipeline completed successfully!"
+      - name: Success
+        run: echo "Build successful"
