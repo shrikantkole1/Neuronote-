@@ -1,23 +1,24 @@
-name: Neuronote CI/CD Pipeline
+name: Aspira CI/CD Pipeline
 
-# When to run pipeline
+# Trigger pipeline
 on:
   push:
     branches: [ main ]
+
   pull_request:
     branches: [ main ]
 
   workflow_dispatch:
-# Jobs to perform
+
 jobs:
 
-  build-and-test:
+  build:
 
     runs-on: ubuntu-latest
 
     steps:
 
-      # Step 1: Get your code from GitHub
+      # Step 1: Download your code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -31,16 +32,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run tests (if available)
+      # Step 4: Run tests
       - name: Run tests
-        run: npm test
+        run: npm test -- --watchAll=false
         continue-on-error: true
 
       # Step 5: Build project
       - name: Build project
         run: npm run build
-        continue-on-error: true
 
       # Step 6: Show success message
-      - name: Pipeline success
-        run: echo "Neuronote build completed successfully!"
+      - name: Success message
+        run: echo "Aspira pipeline completed successfully!"
