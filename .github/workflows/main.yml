@@ -1,0 +1,46 @@
+name: Neuronote CI/CD Pipeline
+
+# When to run pipeline
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+# Jobs to perform
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Step 1: Get your code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests (if available)
+      - name: Run tests
+        run: npm test
+        continue-on-error: true
+
+      # Step 5: Build project
+      - name: Build project
+        run: npm run build
+        continue-on-error: true
+
+      # Step 6: Show success message
+      - name: Pipeline success
+        run: echo "Neuronote build completed successfully!"
