@@ -1,4 +1,4 @@
-# Aspira 🧠✨
+# NeuroNote🧠✨
 
 > A comprehensive mental health companion platform designed to support your wellness journey with AI-powered conversations, mentorship, and mindful tools.
 
